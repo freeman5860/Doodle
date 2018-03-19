@@ -1,5 +1,6 @@
 package com.freemanapp.doodle;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -13,10 +14,19 @@ public class DoodleManager {
 
     private int mPathCnt = 0;
 
+    public interface DoodleListener{
+        void startDraw();
+    }
+
+    private DoodleListener mListener;
+
     private static DoodleManager sInstance;
 
     private DoodleManager(){
         mDoodlePath = new DoodlePath[MAX_DOODLE_NUM];
+        for(int i = 0; i < MAX_DOODLE_NUM; i++){
+            mDoodlePath[i] = new DoodlePath();
+        }
     }
 
     public static DoodleManager getInstance(){
@@ -25,6 +35,10 @@ public class DoodleManager {
         }
 
         return sInstance;
+    }
+
+    public void setDoodleListener(DoodleListener listener){
+        mListener = listener;
     }
 
     public void onTouchEvent(MotionEvent event){
@@ -41,6 +55,10 @@ public class DoodleManager {
             case MotionEvent.ACTION_UP:
                 addPoint(x, y, true);
                 break;
+        }
+
+        if(mListener != null){
+            mListener.startDraw();
         }
     }
 

@@ -8,11 +8,16 @@ import java.util.ArrayList;
 
 public class DoodlePath {
 
+    public static final int MAX_POINT_CNT = 1000;
+
     private Point[] mPath;
     private int mPointCnt;
 
     public DoodlePath(){
-        mPath = new Point[1000];
+        mPath = new Point[MAX_POINT_CNT];
+        for(int i = 0; i < MAX_POINT_CNT; i++){
+            mPath[i] = new Point();
+        }
         mPointCnt = 0;
     }
 

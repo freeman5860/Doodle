@@ -32,6 +32,7 @@ public class DoodleView extends GLSurfaceView implements GLSurfaceView.Renderer 
         setRenderMode(RENDERMODE_WHEN_DIRTY);
 
         mDoodleRender = new DoodleRender(this);
+        DoodleManager.getInstance().setDoodleListener(mDoodleRender);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class DoodleView extends GLSurfaceView implements GLSurfaceView.Renderer 
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-
+        mDoodleRender.clearScreen();
     }
 
     @Override
